@@ -31,4 +31,4 @@ jobs :
           echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/.ssh/ssh_key
           cat ~/.ssh/ssh_key 
           chmod 700 /home/runner/.ssh/ssh_key
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/ssh_key ${{secrets.EC2_HOST}} -t "which docker && docker stop user_backend && docker run --name user_backend -d -p 3000:3000 -e DATABASE_URL='${{secrets.DATABASE_LINK}}' atomiczeone/mono-be:${{ github.sha }}"
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/ssh_key ${{secrets.EC2_HOST}} -t "which docker && (docker stop user_backend || true) && (docker rm user_backend || true)  && docker run --name user_backend -d -p 3000:3000 -e DATABASE_URL='${{secrets.DATABASE_LINK}}' atomiczeone/mono-be:${{ github.sha }}"
