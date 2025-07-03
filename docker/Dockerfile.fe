@@ -14,7 +14,7 @@ RUN bun install
 RUN bun install npm
 RUN bun run db:generate 
 
-RUN export DATABSE_URL=${DATABASE_LINK} && bun run build 
+RUN export DATABASE_URL=${DATABASE_LINK} && bun run build 
 
 CMD ["bun", "run", "web:run"]
 
