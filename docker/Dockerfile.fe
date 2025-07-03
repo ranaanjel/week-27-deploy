@@ -13,8 +13,8 @@ COPY ./apps/web ./apps/web
 RUN bun install
 RUN bun install npm
 RUN bun run db:generate 
-RUN apt-get update -y && apt-get install -y openssl
-RUN export DATABASE_URL=${DATABASE_LINK} && bun run build 
+# RUN apt-get update -y && apt-get install -y openssl
+RUN DATABASE_URL=${DATABASE_LINK} bun run build 
 
 CMD ["bun", "run", "web:run"]
 
