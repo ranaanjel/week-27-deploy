@@ -15,7 +15,7 @@ RUN bun run db:generate
 RUN sh ./env-check.sh
 RUN echo ${DATABASE_LINK} ${DATABASE_URL}
 # RUN apt-get update -y && apt-get install -y openssl
-RUN DATABASE_URL=${DATABASE_URL}  bun run build
+RUN bun run build
 
 FROM oven/bun:1 AS final
 WORKDIR /app
