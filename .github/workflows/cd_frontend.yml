@@ -18,9 +18,10 @@ jobs :
         with : 
           username : ${{secrets.DOCKERHUB_USERNAME}}
           password : ${{secrets.DOCKERHUB_TOKEN}}
+      - name : check the database url 
+        run : echo ${{secrets.DATABASE_LINK}}
       - name : build and push 
         uses : docker/build-push-action@v4
-        run : echo ${{secrets.DATABASE_LINK}}
         with : 
           context : .
           file : ./docker/Dockerfile.fe
