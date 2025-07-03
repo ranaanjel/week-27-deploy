@@ -13,8 +13,8 @@ RUN bun install
 RUN bun install npm
 RUN bun run db:generate 
 # RUN apt-get update -y && apt-get install -y openssl
-RUN echo "DATABASE_URL=${DATABASE_LINK}" > ./apps/web/.env
-RUN cd ./apps/web/ && bun run build
+# RUN echo "DATABASE_URL=${DATABASE_LINK}" > ./apps/web/.env
+RUN cd ./apps/web/ && "DATABASE_URL=${DATABASE_LINK}" bun run build
 
 FROM oven/bun:1 AS final
 WORKDIR /app
