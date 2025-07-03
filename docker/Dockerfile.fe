@@ -13,7 +13,8 @@ COPY ./apps/web ./apps/web
 RUN bun install
 RUN bun install npm
 RUN bun run db:generate 
-RUN DATABSE_URL=${DATABSE_LINK} bun run build 
+
+RUN export DATABSE_URL=${DATABSE_LINK} && bun run build 
 
 CMD ["bun", "run", "web:run"]
 
