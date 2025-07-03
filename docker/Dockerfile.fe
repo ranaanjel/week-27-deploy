@@ -1,0 +1,19 @@
+FROM oven/bun:1
+
+WORKDIR /app
+
+ARG DATABSE_URL
+
+COPY ./package.json ./package.json
+COPY ./packages ./packages
+COPY turbo.json .
+
+COPY ./apps/web ./apps/web
+
+RUN bun install
+RUN bun install npm
+RUN bun run db:generate 
+RUN DATABSE_URL=$DATABSE_URL bun run build 
+
+CMD ["bun", "run", "web:run"]
+

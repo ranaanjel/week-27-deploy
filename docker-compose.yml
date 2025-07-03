@@ -1,0 +1,51 @@
+# version : "2.36"
+services : 
+  ws :  
+    build : 
+      context : . 
+      dockerfile : docker/Dockerfile.ws
+    ports : 
+      - "8081:8081"
+    environment : 
+      - DATABASE_URL=postgresql://postgres:secret@local_db:5432/postgres
+    depends_on: 
+      - local_db 
+
+  local_db : 
+    image : postgres
+    ports : 
+      - "5432:5432"
+    environment : 
+      - POSTGRES_PASSWORD=secret
+    volumes : 
+      - postgres_db:/var/lib/postgres/data
+
+  fe : 
+    build : 
+      context : .
+      dockerfile : docker/Dockerfile.fe
+      network : host
+      args : 
+        - DATABASE_URL=postgresql://postgres:secret@local_db:5432/postgres # for ssg --> in case of production no issue since the db is running already but in this case requires to run the in the build phase locally. // works in both the cases
+    ports :
+        - "3001:3001"
+    environment :  # for the ssr 
+      - DATABASE_URL=postgresql://postgres:secret@local_db:5432/postgres
+    depends_on: 
+      local_db :
+        condition : service_started 
+
+  backend : 
+    build : 
+      context : . 
+      dockerfile : docker/Dockerfile.be
+    ports : 
+      - "3000:3000"
+    environment : 
+      - DATABASE_URL=postgresql://postgres:secret@local_db:5432/postgres
+    depends_on: 
+      - local_db 
+
+
+volumes : 
+  postgres_db : 

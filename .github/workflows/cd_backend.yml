@@ -1,0 +1,13 @@
+name : docker push 
+on : 
+  push : 
+    branches : [main]
+
+run-name : docker push deployement
+jobs :
+  build :
+    runs-on : ubuntu-latest
+    name : building mono-repo
+    steps : 
+      name : "first"
+      run : echo "hello docker hub"
