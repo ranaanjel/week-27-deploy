@@ -2,7 +2,7 @@ FROM oven/bun:1
 
 WORKDIR /app
 
-ARG DATABSE_LINK
+ARG DATABASE_LINK
 
 COPY ./package.json ./package.json
 COPY ./packages ./packages
@@ -14,7 +14,7 @@ RUN bun install
 RUN bun install npm
 RUN bun run db:generate 
 
-RUN export DATABSE_URL=${DATABSE_LINK} && bun run build 
+RUN export DATABSE_URL=${DATABASE_LINK} && bun run build 
 
 CMD ["bun", "run", "web:run"]
 
