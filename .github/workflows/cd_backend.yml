@@ -1,9 +1,9 @@
-name : docker push 
+name : docker push be
 on : 
   push : 
     branches : [main]
 
-run-name : docker push deployement
+run-name : docker push deployement be
 jobs :
   build :
     runs-on : ubuntu-latest

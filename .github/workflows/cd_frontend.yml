@@ -1,9 +1,9 @@
-name : docker push 
+name : docker push fe
 on : 
   push : 
     branches : [main]
 
-run-name : docker push deployement
+run-name : docker push deployement fe 
 jobs :
   build :
     runs-on : ubuntu-latest
@@ -24,6 +24,6 @@ jobs :
           context : .
           file : ./docker/Dockerfile.fe
           build-args :
-            - DATABASE_URL : ${{secrets.DATABASE_URL}}
+             DATABASE_URL : ${{secrets.DATABASE_URL}}
           push : true
           tags : atomiczeone/mono-fe:${{github.sha}}
