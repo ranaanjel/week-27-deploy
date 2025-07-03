@@ -1,1 +1,1 @@
-env | grep DATA
+export DATABASE_URL="postgresql://postgres:secret@localhost:5432/postgres"
