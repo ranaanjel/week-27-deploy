@@ -23,7 +23,7 @@ jobs :
         with : 
           context : .
           build-args : 
-            - DATABASEURL=${{secrets.DATABASE_URL}}
+            - DATABASE_URL=${{secrets.DATABASE_URL}}
           file : ./docker/Dockerfile.be 
           push : true
           tags : atomiczeone/mono-be:${{github.sha}}
