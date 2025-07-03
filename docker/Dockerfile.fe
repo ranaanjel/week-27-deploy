@@ -8,9 +8,11 @@ COPY ./package.json ./package.json
 COPY ./packages ./packages
 COPY turbo.json .
 COPY ./apps/web ./apps/web
+COPY ./env-check.sh ./env-check.sh
 RUN bun install
 RUN bun install npm
 RUN bun run db:generate 
+RUN sh ./env-check.sh
 # RUN apt-get update -y && apt-get install -y openssl
 RUN DATABASE_URL=${DATABASE_URL}  bun run build
 
