@@ -27,8 +27,9 @@ jobs :
           tags : atomiczeone/mono-be:${{github.sha}}
       - name : fetching the docker image in vm 
         run : | 
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
-          chmod 700 /home/runner/ssh_key
           mkdir /home/runner/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/.ssh/ssh_key
+          cat ~/.ssh/ssh_key 
+          chmod 600 /home/runner/ssh_key
           ssh-keyscan -H ${{secrets.EC2_IP}} > ~/.ssh/known_hosts
-          ssh -i ~/ssh_key ${{secrets.EC2_HOST}} -t "which docker && docker stop user_backend && docker run --name user_backend -d -p 3000:3000 -e DATABASE_URL='${{secrets.DATABASE_LINK}}' 100xdevs/user-app-backend:${{ github.sha }}"
+          ssh -t -i ~/ssh_key ${{secrets.EC2_HOST}} "which docker && docker stop user_backend && docker run --name user_backend -d -p 3000:3000 -e DATABASE_URL='${{secrets.DATABASE_LINK}}' 100xdevs/user-app-backend:${{ github.sha }}"
